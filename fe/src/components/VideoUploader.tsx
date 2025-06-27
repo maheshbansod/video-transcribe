@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 
+const API_HOST = "http://localhost:8000";
+
 const VideoUploader = () => {
   const [videoBlob, setVideoBlob] = useState<Blob | null>(null);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
@@ -43,7 +45,7 @@ const VideoUploader = () => {
     const formData = new FormData();
     formData.append("video", videoBlob);
 
-    await fetch("/api/upload", {
+    await fetch(`${API_HOST}/transcribe`, {
       method: "POST",
       body: formData,
     });
