@@ -18,11 +18,12 @@ jobs:
           version: 10
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
+        working-directory: ./fe
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm install && pnpm build
+        run: cd fe && pnpm install && pnpm build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
