@@ -1,3 +1,6 @@
+## video-transcriber
+
+Transcribes video using [openai/whisper](https://github.com/openai/whisper) (tiny.en)
 
 ## Local development
 
