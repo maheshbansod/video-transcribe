@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 function firebaseConfigWrite() {
-	const FIREBASE_CONFIG_FILE = path.resolve(__dirname, './src/config/firebase-config.ts');
+	const FIREBASE_CONFIG_FILE = path.resolve(__dirname, '../src/config/firebase-config.ts');
 
 	const FIREBASE_CONFIG_ENV_VAR = 'FIREBASE_CONFIG';
 
