@@ -48,6 +48,8 @@ const VideoUploader = (props: VideoUploaderProps) => {
   const handleUpload = async () => {
     if (!videoBlob) return;
 
+    props.onUpload({ video: videoBlob });
+
     const formData = new FormData();
     formData.append("video", videoBlob);
 

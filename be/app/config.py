@@ -1,5 +1,13 @@
-from dotenv import dotenv_values
+from dotenv import load_dotenv
+import os
 
-config = dotenv_values(".env")
+if os.environ.get("ENV") != "PROD":
+    load_dotenv()
 
-DATABASE_URL = f"postgresql://{config.get('DB_USER')}:{config.get('DB_PASS')}@{config.get('DB_HOST')}:{config.get('DB_PORT')}/{config.get('DB_NAME')}"
+db_user = os.environ.get("DB_USER")
+db_pass = os.environ.get("DB_PASS")
+db_host = os.environ.get("DB_HOST")
+db_port = os.environ.get("DB_PORT")
+db_name = os.environ.get("DB_NAME")
+
+DATABASE_URL = f"postgresql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
