@@ -17,7 +17,7 @@ jobs:
         with:
           version: 10
       - name: Install dependencies
-        run: cd fe && pnpm install && pnpm build
+        run: cd fe && pnpm run pre-install && pnpm install && pnpm build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
