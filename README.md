@@ -13,6 +13,8 @@ Transcribes video using [openai/whisper](https://github.com/openai/whisper) (tin
 
 #### Backend
 You need a .env file at `be/.env` with the same format as `be/.env.sample`
+
+While running inside docker, you can simply copy .env.sample and it should work as it is.
 ```
 docker compose up -d
 ```
