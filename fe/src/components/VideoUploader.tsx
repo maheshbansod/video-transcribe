@@ -12,6 +12,7 @@ type VideoUploaderProps = {
 const VideoUploader = (props: VideoUploaderProps) => {
   const [videoBlob, setVideoBlob] = useState<Blob | null>(null);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+  const [isTranscribing, setIsTranscribing] = useState(false);
   const streamRef = useRef<MediaStream | null>(null);
   const chunksRef = useRef<Blob[]>([]);
 
@@ -53,19 +54,25 @@ const VideoUploader = (props: VideoUploaderProps) => {
     const formData = new FormData();
     formData.append("video", videoBlob);
 
-    const response = await fetch(`${API_HOST}/transcribe`, {
-      method: "POST",
-      body: formData,
-    });
-    const { id, transcription }: TranscribeResponse = await response.json();
-
-    props.onTranscribe({ video: videoBlob, id, transcription });
+    setIsTranscribing(true);
+    try {
+      const response = await fetch(`${API_HOST}/transcribe`, {
+        method: "POST",
+        body: formData,
+      });
+      const { id, transcription }: TranscribeResponse = await response.json();
+      props.onTranscribe({ video: videoBlob, id, transcription });
+    } finally {
+      setIsTranscribing(false);
+    }
   };
 
   return (
     <div className="p-4 space-y-4">
       {<div className="flex gap-2">
-        {!mediaRecorder && <Button onClick={handleStartRecording}>Start Screen Recording</Button>}
+        {!mediaRecorder && <Button onClick={handleStartRecording}>
+          Start Screen Recording
+        </Button>}
         {mediaRecorder && <Button onClick={handleStopRecording}>Stop Recording</Button>}
         <input type="file" accept="video/*" onChange={handleUploadInput} />
       </div>}
@@ -77,7 +84,8 @@ const VideoUploader = (props: VideoUploaderProps) => {
             controls
             className="max-w-full h-[400px]"
           />
-          <Button onClick={handleUpload}>Upload Video</Button>
+          {!isTranscribing && <Button onClick={handleUpload}>Upload Video</Button>}
+          {isTranscribing && <>Transcribing...</>}
         </div>
       )}
     </div>
