@@ -9,6 +9,7 @@ dependencies = [
     "fastapi[standard]>=0.115.14",
     "openai-whisper>=20250625",
     "psycopg2-binary>=2.9.10",
+    "python-dotenv>=1.1.1",
     "sqlalchemy>=2.0.41",
 ]
 
