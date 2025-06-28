@@ -12,6 +12,7 @@ Transcribes video using [openai/whisper](https://github.com/openai/whisper) (tin
 ### Running
 
 #### Backend
+You need a .env file at `be/.env` with the same format as `be/.env.sample`
 ```
 docker compose up -d
 ```
