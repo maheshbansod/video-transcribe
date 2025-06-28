@@ -67,3 +67,10 @@ export default tseslint.config([
   },
 ])
 ```
+
+### Config
+
+Create a firebase-config.ts file at:
+```
+./src/config/firebase-config.ts
+```

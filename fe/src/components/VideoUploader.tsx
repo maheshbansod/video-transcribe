@@ -1,9 +1,15 @@
 import React, { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import type { TranscribeCallbackParams, TranscribeResponse, UploadCallbackParams } from "@/types/video";
 
 const API_HOST = "http://localhost:8000";
 
-const VideoUploader = () => {
+type VideoUploaderProps = {
+  onTranscribe: (d: TranscribeCallbackParams) => void
+  onUpload: (d: UploadCallbackParams) => void
+}
+
+const VideoUploader = (props: VideoUploaderProps) => {
   const [videoBlob, setVideoBlob] = useState<Blob | null>(null);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -45,12 +51,13 @@ const VideoUploader = () => {
     const formData = new FormData();
     formData.append("video", videoBlob);
 
-    await fetch(`${API_HOST}/transcribe`, {
+    const response = await fetch(`${API_HOST}/transcribe`, {
       method: "POST",
       body: formData,
     });
+    const { id, transcription }: TranscribeResponse = await response.json();
 
-    alert("Uploaded");
+    props.onTranscribe({ video: videoBlob, id, transcription });
   };
 
   return (
