@@ -1,11 +1,11 @@
 import uuid
 from fastapi import Depends, FastAPI, File, UploadFile
-from fastapi.responses import JSONResponse
 import hashlib
 import tempfile
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 import whisper
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.database.session import get_db
 from app.models.video import Video
@@ -15,6 +15,14 @@ model = whisper.load_model("tiny.en")
 print("starting")
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def compute_sha256(file_bytes: bytes) -> str:

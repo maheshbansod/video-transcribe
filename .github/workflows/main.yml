@@ -38,10 +38,11 @@ jobs:
             registry-password: ${{ secrets.REGISTRY_PASSWORD }}
             name: aci-sampleapp
             location: 'west us'
-            environment-variables: |
+            secure-environment-variables: |
               DB_HOST="${{ secrets.DB_HOST }}"
               DB_PORT="${{ secrets.DB_PORT }}"
               DB_USER="${{ secrets.DB_USER }}"
               DB_PASS="${{ secrets.DB_PASS }}"
               DB_NAME="${{ secrets.DB_NAME }}"
+            environment-variables: |
               ENV="PROD"
