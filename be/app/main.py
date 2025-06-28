@@ -12,8 +12,6 @@ from app.models.video import Video
 
 model = whisper.load_model("tiny.en")
 
-print("starting")
-
 app = FastAPI()
 
 app.add_middleware(
