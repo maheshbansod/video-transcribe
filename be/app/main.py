@@ -11,6 +11,7 @@ from app.database.session import get_db
 from app.models.video import Video
 
 model = whisper.load_model("tiny.en")
+print("starting server")
 
 app = FastAPI()
 
